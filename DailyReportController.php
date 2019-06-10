@@ -17,7 +17,36 @@ class DailyReportController extends Controller
 
     public function index()
     {
-        return view('user.daily_report.index');
+        $dailyreports = $this->dailyreport::all();
+        return view('user.daily_report.index', compact('dailyreports'));
+    }
+
+    public function show($id)
+    {
+        $dailyreport = $this->dailyreport::find($id);
+        return view('user.daily_report.show',compact('dailyreport'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $dailyreport = $this->dailyreport::find($id);
+        $dailyreport -> title = $request -> input('title');
+        $dailyreport -> contents = $request -> input('contents');
+        return redirect() -> route('dailyreport.show',['id' => $request ->id]);
+    }
+
+    public function create()
+    {
+        $dailyreport = new DailyReport();
+        $dailyreport -> title = $request -> input('title');
+        $dailyreport -> contents = $request -> input('contents');
+        return redirect() -> route('dailyreport.show',['id' => $request ->id]);
+    }
+
+    public function destroy($id)
+    {
+        $dailyreport = $this->dailyreport::find::($id);
+        $dailyreport->delete();
     }
 
 }

@@ -17,8 +17,8 @@ class DailyReportController extends Controller
 
     public function index()
     {
-        $dailyreports = $this->dailyreport::all();
-        return view('user.daily_report.index', compact('dailyreports'));
+        //$dailyreports = $this->dailyreport::all();
+        return view('user.daily_report.index');
     }
 
     public function show($id)
@@ -45,7 +45,7 @@ class DailyReportController extends Controller
 
     public function destroy($id)
     {
-        $dailyreport = $this->dairyreport::find::($id);
+        $dailyreport = $this->dailyreport::find($id);
         $dailyreport->delete();
     }
 
