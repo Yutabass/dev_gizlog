@@ -35,4 +35,18 @@ class DailyReportController extends Controller
         return redirect() -> route('dailyreport.show',['id' => $request ->id]);
     }
 
+    public function create()
+    {
+        $dailyreport = new DailyReport();
+        $dailyreport -> title = $request -> input('title');
+        $dailyreport -> contents = $request -> input('contents');
+        return redirect() -> route('dailyreport.show',['id' => $request ->id]);
+    }
+
+    public function destroy($id)
+    {
+        $dailyreport = $this->dairyreport::find::($id);
+        $dailyreport->delete();
+    }
+
 }
