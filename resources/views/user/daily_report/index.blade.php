@@ -21,7 +21,7 @@
         </tr>
       </thead>
       <tbody>
-        @foreach($dailyreports as $dailyreport)
+        @foreach ($dailyreports as $dailyreport)
           <tr class="row">
             <td class="col-xs-2">{{ $dailyreport->reporting_time }}</td>
             <td class="col-xs-3">{{ $dailyreport->title }}</td>
@@ -35,4 +35,3 @@
 </div>
 
 @endsection
-

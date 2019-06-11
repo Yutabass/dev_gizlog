@@ -20,27 +20,19 @@ class DailyReportController extends Controller
 
     public function index(Request $request)
     {
-        if($request->filled('search_month'))
-        {
+        if ($request->filled('search_month')) {
             $search_date_min = $request->search_month."-01";
             $search_date_max = $request->search_month."-31";
             $dailyreports = $this->dailyreport::orderby('reporting_time','desc')
                 ->whereBetween('reporting_time', [$search_date_min, $search_date_max])->get();
-        }else
-        {
+        } else {
             $dailyreports = $this->dailyreport::orderby('reporting_time','desc')->get();
         }
         return view('user.daily_report.index', compact('dailyreports'));
     }
 
-    public function search(Request $request)
-    {
-        $serach = $request->search-month;
-    }
-
     public function create()
     {
-    
         return view('user.daily_report.create');
     }
 
@@ -52,14 +44,11 @@ class DailyReportController extends Controller
 
     public function store(DailyReportRequest $request)
     {
-        //$input = $request->all();
         $this->dailyreport->user_id = $request->user()->id;
+        $this->dailyreport->reporting_time =$request->reporting_time;
         $this->dailyreport->title = $request->title;
         $this->dailyreport->contents = $request->contents;
-        $this->dailyreport->reporting_time =$request->reporting_time;
         $this->dailyreport->save();
-        //$this->dailyreport->fill($input)->save();
-        //dd($this->dailyreport);
         return redirect()->route('dailyreport.index');
     }
 
@@ -86,3 +75,4 @@ class DailyReportController extends Controller
     }
 
 }
+
