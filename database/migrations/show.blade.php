@@ -1,4 +1,4 @@
-@extends ('common.user')
+﻿@extends ('common.user')
 @section ('content')
 
 <h1 class="brand-header">日報詳細</h1>
@@ -25,7 +25,7 @@
   <div class="btn-bottom-wrapper">
     <a class="btn btn-edit" href="{{ route('dailyreport.delete',['id' => $dailyreport->id]) }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
     <div class="btn-delete">
-      <form action="{{ route('dailyreport.delete', ['id'=>$dailyreport->id]') }}" method='get'>
+      <form action="{{ route('dailyreport.delete', ['id'=>$dailyreport->id]) }}" method='get'>
         <button class="btn btn-danger" type="submit"><i class="fa fa-trash-o"></i></button>
       </form>
     </div>

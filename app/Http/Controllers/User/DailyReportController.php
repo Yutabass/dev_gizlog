@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\DailyReport;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DailyReportController extends Controller
 {
@@ -12,13 +13,20 @@ class DailyReportController extends Controller
 
     public function __construct(DailyReport $dailyreport)
     {
+        $this->middleware('auth');
         $this->dailyreport = $dailyreport;
     }
 
     public function index()
     {
-        //$dailyreports = $this->dailyreport::all();
-        return view('user.daily_report.index');
+        $userId = Auth::id();
+        $dailyreports = $this->dailyreport::all();
+        return view('user.daily_report.index', compact('dailyreports'));
+    }
+
+    public function create()
+    {
+        return view('user.daily_report.create');
     }
 
     public function show($id)
@@ -27,26 +35,37 @@ class DailyReportController extends Controller
         return view('user.daily_report.show',compact('dailyreport'));
     }
 
-    public function update(Request $request, $id)
+    public function store(Request $request)
     {
-        $dailyreport = $this->dailyreport::find($id);
-        $dailyreport -> title = $request -> input('title');
-        $dailyreport -> contents = $request -> input('contents');
-        return redirect() -> route('dailyreport.show',['id' => $request ->id]);
-    }
-
-    public function create()
-    {
+        /*
         $dailyreport = new DailyReport();
         $dailyreport -> title = $request -> input('title');
         $dailyreport -> contents = $request -> input('contents');
-        return redirect() -> route('dailyreport.show',['id' => $request ->id]);
+        $dailyreport -> save();
+        */
+        return redirect()->route('dailyreport.index');
     }
 
+    public function edit($id)
+    {
+        $dailyreport = $this->dailyreport::find($id);
+        return view('user.daily_report.edit', compact('dailyreport'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $input = $request->all();
+        $this->dailyreport::find($id)->fill($input)->save();
+        return redirect()->route('dailyreport.index');
+    }
+
+    
+    
     public function destroy($id)
     {
         $dailyreport = $this->dailyreport::find($id);
         $dailyreport->delete();
+        return redirect()->route('dailyreport.index');
     }
 
 }

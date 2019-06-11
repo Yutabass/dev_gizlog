@@ -8,6 +8,8 @@ use App\Models\User;
 
 class DailyReport extends Model
 {
+    use SoftDeletes;
+    
     protected $fillable = [
         'user_id',
         'title',
@@ -19,5 +21,10 @@ class DailyReport extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
 }
