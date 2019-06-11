@@ -19,13 +19,13 @@ class DailyReportController extends Controller
 
     public function index()
     {
-        $userId = Auth::id();
         $dailyreports = $this->dailyreport::all();
         return view('user.daily_report.index', compact('dailyreports'));
     }
 
     public function create()
     {
+    
         return view('user.daily_report.create');
     }
 
@@ -37,12 +37,8 @@ class DailyReportController extends Controller
 
     public function store(Request $request)
     {
-        /*
-        $dailyreport = new DailyReport();
-        $dailyreport -> title = $request -> input('title');
-        $dailyreport -> contents = $request -> input('contents');
-        $dailyreport -> save();
-        */
+        $input = $request->all();
+        $this->dailyreport->fill($input)->save();
         return redirect()->route('dailyreport.index');
     }
 
