@@ -39,7 +39,6 @@ class DailyReportController extends Controller
     public function store(DailyReportRequest $request)
     {
         //$input = $request->all();
-        
         $this->dailyreport->user_id = $request->user()->id;
         $this->dailyreport->title = $request->title;
         $this->dailyreport->contents = $request->contents;
