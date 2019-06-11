@@ -18,10 +18,24 @@ class DailyReportController extends Controller
         $this->dailyreport = $dailyreport;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $dailyreports = $this->dailyreport::orderby('reporting_time','desc')->get();
+        if($request->filled('search_month'))
+        {
+            $search_date_min = $request->search_month."-01";
+            $search_date_max = $request->search_month."-31";
+            $dailyreports = $this->dailyreport::orderby('reporting_time','desc')
+                ->whereBetween('reporting_time', [$search_date_min, $search_date_max])->get();
+        }else
+        {
+            $dailyreports = $this->dailyreport::orderby('reporting_time','desc')->get();
+        }
         return view('user.daily_report.index', compact('dailyreports'));
+    }
+
+    public function search(Request $request)
+    {
+        $serach = $request->search-month;
     }
 
     public function create()
