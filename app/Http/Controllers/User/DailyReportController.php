@@ -37,8 +37,14 @@ class DailyReportController extends Controller
 
     public function store(Request $request)
     {
-        $input = $request->all();
-        $this->dailyreport->fill($input)->save();
+        //$input = $request->all();
+        $this->dailyreport->title = $request->title;
+        $this->dailyreport->contents = $request->contents;
+        $this->dailyreport->user_id = $request->user()->id;
+        $this->dailyreport->reporting_time =$request->reporting_time;
+        $this->dailyreport->save();
+        //$this->dailyreport->fill($input)->save();
+        //dd($this->dailyreport);
         return redirect()->route('dailyreport.index');
     }
 
