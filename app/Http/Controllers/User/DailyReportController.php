@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\DailyReport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\User\DailyReportRequest;
 
 class DailyReportController extends Controller
 {
@@ -19,7 +20,7 @@ class DailyReportController extends Controller
 
     public function index()
     {
-        $dailyreports = $this->dailyreport::all();
+        $dailyreports = $this->dailyreport::orderby('reporting_time','desc')->get();
         return view('user.daily_report.index', compact('dailyreports'));
     }
 
@@ -35,9 +36,10 @@ class DailyReportController extends Controller
         return view('user.daily_report.show',compact('dailyreport'));
     }
 
-    public function store(Request $request)
+    public function store(DailyReportRequest $request)
     {
         //$input = $request->all();
+        
         $this->dailyreport->user_id = $request->user()->id;
         $this->dailyreport->title = $request->title;
         $this->dailyreport->contents = $request->contents;
@@ -54,7 +56,7 @@ class DailyReportController extends Controller
         return view('user.daily_report.edit', compact('dailyreport'));
     }
 
-    public function update(Request $request, $id)
+    public function update(DailyReportRequest $request, $id)
     {
         $input = $request->all();
         $this->dailyreport::find($id)->fill($input)->save();
