@@ -15,6 +15,7 @@ class DailyReport extends Model
         'user_id',
         'title',
         'contents',
+        'reporting_time',
     ];
 
     protected $dates = [
