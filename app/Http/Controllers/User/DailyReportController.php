@@ -39,16 +39,13 @@ class DailyReportController extends Controller
     public function show($id)
     {
         $dailyreport = $this->dailyreport::find($id);
-        return view('user.daily_report.show',compact('dailyreport'));
+        return view('user.daily_report.show', compact('dailyreport'));
     }
 
     public function store(DailyReportRequest $request)
     {
-        $this->dailyreport->user_id = $request->user()->id;
-        $this->dailyreport->reporting_time =$request->reporting_time;
-        $this->dailyreport->title = $request->title;
-        $this->dailyreport->contents = $request->contents;
-        $this->dailyreport->save();
+        $input = $request->all();
+        $this->dailyreport->fill($input)->save();
         return redirect()->route('dailyreport.index');
     }
 

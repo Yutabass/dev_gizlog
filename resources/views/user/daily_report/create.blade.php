@@ -6,7 +6,7 @@
   <div class="container">
     <form action="{{ route('dailyreport.store') }}" method="post">
       {{ csrf_field() }}
-      <input class="form-control" name="user_id" type="hidden">
+      <input class="form-control" name="user_id" type="hidden" value="{{ Auth::user()->id }}">
         <div class="form-group form-size-small  
           @if ( $errors->has('reporting_time') )
             {{ 'has-error' }}
