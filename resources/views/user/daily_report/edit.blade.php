@@ -5,6 +5,7 @@
 <div class="main-wrap">
   <div class="container">
     <form action="{{ route('dailyreport.update', ['id'=>$dailyreport->id]) }}" method="post">
+      <input name="_method" type="hidden" value="PUT">
       {{ csrf_field() }}
       <input class="form-control" name="user_id" type="hidden" value="{{ $dailyreport->user_id }}">
         <div class="form-group form-size-small  
