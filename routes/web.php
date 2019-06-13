@@ -33,6 +33,8 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
 
     Route::get('questions', ['as' => 'question.index', 'uses' => 'QuestionController@index']);
     Route::get('question/create', ['as' => 'question.create', 'uses' => 'QuestionController@create']);
+    Route::get('question/{id}', ['as' => 'question.show', 'uses' => 'QuestionController@show']);
+    Route::post('question', ['as' => 'question.store', 'uses' => 'QuestionController@store']);
     Route::get('question/mypage', ['as' => 'question.mypage', 'uses' => 'QuestionController@mypage']);
 
     Route::get('attendance', ['as' => 'attendance.index', 'uses' => 'AttendanceController@index']);

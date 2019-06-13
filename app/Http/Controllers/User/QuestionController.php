@@ -17,14 +17,28 @@ class QuestionController extends Controller
         $this->question = $question;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return view('user.question.index');
+        $questions = $this->question->latest()->get();
+        return view('user.question.index', compact('questions'));
     }
 
     public function create()
     {
         return view('user.question.create');
+    }
+
+    public function show($id)
+    {
+        $question = $this->question->find($id)->get();
+        return view('user.question.show', compact('question'));
+    }
+
+    public function store(Request $request)
+    {
+        $input = $request->all();
+        $questions = $this->question->fill($input)->save();
+        return redirect()->route('question.index');
     }
 
     public function mypage()
