@@ -13,5 +13,9 @@ class TagCategory extends Model
     protected $table = 'tag_categories';
     protected $dates = ['deleted_at'];
 
+    public function Question()
+    {
+        return $this->hasMany(Question::class, 'tag_category_id');
+    }
 }
 

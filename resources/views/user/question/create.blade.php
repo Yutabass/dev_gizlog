@@ -5,7 +5,7 @@
 <div class="main-wrap">
   <div class="container">
     <form action="{{ route('question.store') }}" method="post">
-      <input type="hidden" name="user_id" value="1">
+      <input type="hidden" name="user_id" value="{{ Auth::id() }}">
       {{ csrf_field() }}
       <div class="form-group">
         <select name='tag_category_id' class = "form-control selectpicker form-size-small" id="pref_id">

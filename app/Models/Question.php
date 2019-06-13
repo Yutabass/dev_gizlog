@@ -24,5 +24,10 @@ class Question extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function tagCategory()
+    {
+        return $this->belongsTo(TagCategory::class);
+    }
+
 }
 

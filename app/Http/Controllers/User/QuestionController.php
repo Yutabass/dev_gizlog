@@ -17,23 +17,18 @@ class QuestionController extends Controller
         $this->question = $question;
     }
 
-    public function index(Request $request)
+    public function index()
     {
         $questions = $this->question->latest()->get();
-        return view('user.question.index', compact('questions'));
+        $login_user_id = Auth::id();
+        return view('user.question.index', compact('questions', 'login_user_id'));
     }
 
     public function create()
     {
         return view('user.question.create');
     }
-
-    public function show($id)
-    {
-        $question = $this->question->find($id)->get();
-        return view('user.question.show', compact('question'));
-    }
-
+    
     public function store(Request $request)
     {
         $input = $request->all();
@@ -41,9 +36,23 @@ class QuestionController extends Controller
         return redirect()->route('question.index');
     }
 
-    public function mypage()
+    public function show($id)
     {
-        return view('user.question.mypage');
+        $question = $this->question->find($id);
+        return view('user.question.show', compact('question'));
+    }
+    
+    public function mypage($login_user_id)
+    {
+        $questions = $this->question->where('user_id', '=', $login_user_id)->get();
+        return view('user.question.mypage', compact('questions'));
+    }
+
+    public function destroy($id)
+    {
+        $question = $this->question->find($id);
+        $question->delete();
+        return redirect()->back();
     }
 
 }
