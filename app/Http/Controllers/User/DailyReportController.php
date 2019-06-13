@@ -21,8 +21,10 @@ class DailyReportController extends Controller
     public function index(Request $request)
     {
         if ($request->filled('search_month')) {
-            $search_month = $request->search_month;
-            $dailyreports = $this->dailyreport->orderby('reporting_time','desc')->where('reporting_time', 'like', "{$search_month}%")->get();    
+            $search_date = explode('-', $request->search_month);
+            $year = $search_date[0];
+            $month = $search_date[1];
+            $dailyreports = $this->dailyreport->orderby('reporting_time','desc')->whereYear('reporting_time', $year)->whereMonth('reporting_time', $month)->get();    
         } else {
             $dailyreports = $this->dailyreport->orderby('reporting_time','desc')->get();
         }
