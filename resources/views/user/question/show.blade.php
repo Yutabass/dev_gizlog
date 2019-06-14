@@ -25,26 +25,34 @@
     </div>
   </div>
     <div class="comment-list">
+      @foreach ($comments as $comment)
         <div class="comment-wrap">
           <div class="comment-title">
-            <img src="" class="avatar-img">
-            <p></p>
-            <p class="comment-date"></p>
+            <img src="{{ $comment->user->avatar }}" class="avatar-img">
+            <p>{{ $comment->user->name }}</p>
+            <p class="comment-date">{{ $comment->updated_at }}</p>
           </div>
-          <div class="comment-body"></div>
+          <div class="comment-body">{{ $comment->comment }}</div>
         </div>
+      @endforeach  
     </div>
   <div class="comment-box">
-    <form action="">
+    <form action="{{ route('question.comment') }}" method="post">
       {{ csrf_field() }}
-      <input name="user_id" type="hidden" value="">
-      <input name="question_id" type="hidden" value="">
+      <input name="user_id" type="hidden" value="{{ Auth::id() }}">
+      <input name="question_id" type="hidden" value="{{ $question->id }}">
       <div class="comment-title">
-        <img src="" class="avatar-img"><p>コメントを投稿する</p>
+        <img src="{{ $question->user->avatar }}" class="avatar-img"><p>コメントを投稿する</p>
       </div>
-      <div class="comment-body">
-        <textarea class="form-control" placeholder="Add your comment..." name="comment" cols="50" rows="10"></textarea>
-        <span class="help-block"></span>
+      <div class="comment-body
+        @if ($errors->has('comment'))
+          {{ 'has-error' }}
+        @endif
+      ">
+        <textarea class="form-control" placeholder="Add your comment..." name="comment" cols="50" rows="10">{{ old('comment') }}</textarea>
+        @if ($errors->has('comment'))
+          <span class="help-block">{{ $errors->first('comment') }}</span>
+        @endif  
       </div>
       <div class="comment-bottom">
         <button type="submit" class="btn btn-success">

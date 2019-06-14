@@ -4,18 +4,22 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\User\QuestionsRequest;
+use App\Http\Requests\User\CommentRequest;
 use App\Models\Question;
+use App\Models\Comment;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class QuestionController extends Controller
 {
     protected $question;
+    protected $comment;
 
-    public function __construct(Question $question)
+    public function __construct(Question $question, Comment $comment)
     {
         $this->middleware('auth');
         $this->question = $question;
+        $this->comment = $comment;
     }
 
     public function index(Request $request)
@@ -56,10 +60,18 @@ class QuestionController extends Controller
         return redirect()->route('question.mypage');
     }
 
+    public function comment(CommentRequest $request)
+    {
+        $input = $request->all();
+        $comment = $this->comment->fill($input)->save();
+        return redirect()->back();
+    }
+
     public function show($id)
     {
         $question = $this->question->find($id);
-        return view('user.question.show', compact('question'));
+        $comments = $this->comment->where('question_id', '=', $id)->get();
+        return view('user.question.show', compact('question', 'comments'));
     }
     
     public function mypage()
@@ -77,3 +89,4 @@ class QuestionController extends Controller
     }
 
 }
+
