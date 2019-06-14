@@ -5,12 +5,12 @@
 
 <div class="main-wrap">
   <div class="container">
-    <form action="{{ route('question.update', ['id' => $question->id]) }}" method="post">
+    <form action="{{ route('question.confirm') }}" method="post">
       {{ csrf_field() }}
-      <input  name="_method" type="hidden" value="PUT">
+      <input type="hidden" name="user_id" value="{{ $question->user_id }}">
       <div class="form-group">
         <select name='tag_category_id' class = "form-control selectpicker form-size-small" id ="pref_id">
-          <option value="{{ old('tag_category_id', $question->tag_category_id) }}">{{ $question->tagCategory->name }}</option>
+          <option value="{{ $question->tag_category_id }}">{{ $question->tagCategory->name }}</option>
             <option value= "1">FRONT</option>
             <option value= "2">BACK</option>
             <option value= "3">INFRA</option>

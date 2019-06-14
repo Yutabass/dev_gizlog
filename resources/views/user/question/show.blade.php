@@ -35,7 +35,8 @@
         </div>
     </div>
   <div class="comment-box">
-    <form>
+    <form action="">
+      {{ csrf_field() }}
       <input name="user_id" type="hidden" value="">
       <input name="question_id" type="hidden" value="">
       <div class="comment-title">

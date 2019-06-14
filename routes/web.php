@@ -33,12 +33,12 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
 
     Route::get('questions', ['as' => 'question.index', 'uses' => 'QuestionController@index']);
     Route::get('question/create', ['as' => 'question.create', 'uses' => 'QuestionController@create']);
-    Route::put('question/{id}', ['as' => 'question.update', 'uses' => 'QuestionController@update']);
+    Route::get('question/mypage', ['as' => 'question.mypage', 'uses' => 'QuestionController@mypage']);
+    Route::post('question/confirm', ['as' => 'question.confirm', 'uses' => 'QuestionController@confirm']);
+    Route::post('question/post', ['as' => 'question.post', 'uses' => 'QuestionController@post']);
     Route::delete('question/{id}', ['as' => 'question.delete', 'uses' => 'QuestionController@destroy']);
     Route::get('question/{id}', ['as' => 'question.show', 'uses' => 'QuestionController@show']);
     Route::get('question/{id}/edit', ['as' => 'question.edit', 'uses' => 'QuestionController@edit']);
-    Route::post('question', ['as' => 'question.store', 'uses' => 'QuestionController@store']);
-    Route::get('question/mypage/{user_id}', ['as' => 'question.mypage', 'uses' => 'QuestionController@mypage']);
 
     Route::get('attendance', ['as' => 'attendance.index', 'uses' => 'AttendanceController@index']);
     Route::post('attendance/register', ['as' => 'attendance.register.start', 'uses' => 'AttendanceController@setStartTime']);
