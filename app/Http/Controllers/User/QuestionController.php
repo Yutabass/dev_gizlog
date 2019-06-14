@@ -19,15 +19,15 @@ class QuestionController extends Controller
 
     public function index(Request $request)
     {
-        $login_user_id = Auth::id();
         $search_tag_id = $request->tag_category_id;
         $search_word = $request->search_word;
-        if (!empty($search_tag_id) && $search_tag_id >= 1) {
-            $questions = $this->question->where('title', 'like', "%$search_word%")->where('tag_category_id', '=', $search_tag_id)->get();
-        } else {   
-            $questions = $this->question->latest()->get();
-        }
-        return view('user.question.index', compact('questions', 'login_user_id'));
+            if (!empty($search_tag_id) && $search_tag_id >= 1) {
+                $questions = $this->question->where('title', 'like', "%$search_word%")->where('tag_category_id', '=', $search_tag_id)->latest()->get();
+            } else {
+                $questions = $this->question->where('title', 'like', "%$search_word%")->latest()->get();
+            }
+            
+        return view('user.question.index', compact('questions', 'search_word'));
     }
 
     public function create()
