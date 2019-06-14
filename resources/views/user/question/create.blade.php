@@ -35,7 +35,7 @@
       </div>
       <div class="form-group
       @if ($errors->has('content'))
-          {{ 'has-error' }} 
+        {{ 'has-error' }} 
       @endif
       ">
         <textarea class="form-control" placeholder="Please write down your question here..." name="content" cols="50" rows="10">{{ old('content') }}</textarea>
@@ -49,4 +49,3 @@
 </div>
 
 @endsection
-

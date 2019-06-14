@@ -26,12 +26,11 @@ class QuestionController extends Controller
     {
         $search_tag_id = $request->tag_category_id;
         $search_word = $request->search_word;
-            if (!empty($search_tag_id) && $search_tag_id >= 1) {
+            if (!empty($search_tag_id)) {
                 $questions = $this->question->where('title', 'like', "%$search_word%")->where('tag_category_id', '=', $search_tag_id)->latest()->get();
             } else {
                 $questions = $this->question->where('title', 'like', "%$search_word%")->latest()->get();
-            }
-            
+            }   
         return view('user.question.index', compact('questions', 'search_word'));
     }
 
@@ -64,7 +63,7 @@ class QuestionController extends Controller
     {
         $input = $request->all();
         $comment = $this->comment->fill($input)->save();
-        return redirect()->back();
+        return redirect()->route('question.show',['id'=> $input['question_id']]);
     }
 
     public function show($id)
