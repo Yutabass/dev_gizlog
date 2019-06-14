@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\User\QuestionsRequest;
 use App\Models\Question;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -41,7 +42,7 @@ class QuestionController extends Controller
         return view('user.question.edit', compact('question'));
     }
 
-    public function confirm(Request $request)
+    public function confirm(QuestionsRequest $request)
     {
         $input = $request->all();
         $question = $this->question->fill($input);
