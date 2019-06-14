@@ -33,9 +33,10 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
 
     Route::get('questions', ['as' => 'question.index', 'uses' => 'QuestionController@index']);
     Route::get('question/create', ['as' => 'question.create', 'uses' => 'QuestionController@create']);
+    Route::put('question/{id}', ['as' => 'question.update', 'uses' => 'QuestionController@update']);
     Route::delete('question/{id}', ['as' => 'question.delete', 'uses' => 'QuestionController@destroy']);
     Route::get('question/{id}', ['as' => 'question.show', 'uses' => 'QuestionController@show']);
-    //Route::get('question/{id}/edit', ['as' => 'question.edit', 'uses' => 'QuestionController@edit']);
+    Route::get('question/{id}/edit', ['as' => 'question.edit', 'uses' => 'QuestionController@edit']);
     Route::post('question', ['as' => 'question.store', 'uses' => 'QuestionController@store']);
     Route::get('question/mypage/{user_id}', ['as' => 'question.mypage', 'uses' => 'QuestionController@mypage']);
 

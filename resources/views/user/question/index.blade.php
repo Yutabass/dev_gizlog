@@ -3,7 +3,7 @@
 
 <h2 class="brand-header">質問一覧</h2>
 <div class="main-wrap">
-  <form>
+  <form method="get">
     <div class="btn-wrapper">
       <div class="search-box">
         <input class="form-control search-form" placeholder="Search words..." name="search_word" type="text">
@@ -16,11 +16,11 @@
     </div>
     <div class="category-wrap">
       <div class="btn all" id="0">all</div>
-      <div class="btn" id="1">FRONT</div>
-      <div class="btn" id="2">BACK</div>
-      <div class="btn" id="3">INFRA</div>
-      <div class="btn" id="4">OTHERS</div>
-      <input id="category-val" name="tag_category_id" type="hidden" value="">
+      <div class="btn front" id="1">FRONT</div>
+      <div class="btn back" id="2">BACK</div>
+      <div class="btn infra" id="3">INFRA</div>
+      <div class="btn others" id="4">OTHERS</div>
+      <input id="category-val" name="tag_category_id" type="hidden">
     </div>
   </form>
   <div class="content-wrapper table-responsive">

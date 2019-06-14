@@ -5,8 +5,8 @@
 <div class="main-wrap">
   <div class="container">
     <form action="{{ route('question.store') }}" method="post">
-      <input type="hidden" name="user_id" value="{{ Auth::id() }}">
       {{ csrf_field() }}
+      <input type="hidden" name="user_id" value="{{ Auth::id() }}">
       <div class="form-group">
         <select name='tag_category_id' class = "form-control selectpicker form-size-small" id="pref_id">
           <option value="">Select category</option>
@@ -18,11 +18,11 @@
         <span class="help-block"></span>
       </div>
       <div class="form-group">
-        <input class="form-control" placeholder="title" name="title" type="text">
+        <input class="form-control" placeholder="title" name="title" type="text" value="{{ old('title') }}">
         <span class="help-block"></span>
       </div>
       <div class="form-group">
-        <textarea class="form-control" placeholder="Please write down your question here..." name="content" cols="50" rows="10"></textarea>
+        <textarea class="form-control" placeholder="Please write down your question here..." name="content" cols="50" rows="10">{{ old('content') }}</textarea>
         <span class="help-block"></span>
       </div>
       <input name="confirm" class="btn btn-success pull-right" type="submit" value="create">

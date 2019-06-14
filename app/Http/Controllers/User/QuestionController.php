@@ -17,9 +17,16 @@ class QuestionController extends Controller
         $this->question = $question;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $questions = $this->question->latest()->get();
+        $search_tag_id = $request->tag_category_id;
+        $search_word = $request->search_word;
+        if (!empty($search_tag_id) && $search_tag_id >= 1) {
+            $questions = $this->question->where('title', 'like', "%$search_word%")->where('tag_category_id', '=', $search_tag_id)->get();
+        } else {   
+            $questions = $this->question->latest()->get();
+        }
+
         $login_user_id = Auth::id();
         return view('user.question.index', compact('questions', 'login_user_id'));
     }
@@ -32,8 +39,22 @@ class QuestionController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-        $questions = $this->question->fill($input)->save();
+        $question = $this->question->fill($input)->save();
         return redirect()->route('question.index');
+    }
+
+    public function edit($id)
+    {
+        $question = $this->question->find($id);
+        return view('user.question.edit', compact('question'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $input = $request->all();
+        $question = $this->question->find($id)->fill($input)->save();
+        $login_user_id = Auth::id();
+        return redirect()->route('question.mypage', ['user_id' => $login_user_id]);
     }
 
     public function show($id)
