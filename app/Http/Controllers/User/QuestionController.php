@@ -76,7 +76,7 @@ class QuestionController extends Controller
     public function mypage()
     {
         $login_user_id = Auth::id();
-        $questions = $this->question->where('user_id', '=', $login_user_id)->get();
+        $questions = $this->question->where('user_id', '=', $login_user_id)->latest()->get();
         return view('user.question.mypage', compact('questions'));
     }
 
