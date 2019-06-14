@@ -6,8 +6,8 @@
   <div class="panel panel-success">
     <div class="panel-heading">
       <img src="{{ $question->user->avatar }}" class="avatar-img">
-      <p>{{ $question->user->name }}&nbsp;さんの質問&nbsp;{{ $question->updated_at }}&nbsp;(&nbsp;{{ $question->tagCategory->name }}&nbsp;)</p>
-      <p class="question-date"></p>
+      <p>{{ $question->user->name }}&nbsp;さんの質問&nbsp;&nbsp;(&nbsp;{{ $question->tagCategory->name }}&nbsp;)</p>
+      <p class="question-date">{{ $question->updated_at }}</p>
     </div>
     <div class="table-responsive">
       <table class="table table-striped table-bordered">
