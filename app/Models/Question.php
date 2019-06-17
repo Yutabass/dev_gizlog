@@ -4,9 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\User;
-use App\Models\TagCategory;
-use App\Models\Comment;
 
 class Question extends Model
 {
@@ -37,7 +34,7 @@ class Question extends Model
 
     public function comment()
     {
-        return $this->hasMany(Comment::class, 'question_id');
+        return $this->hasMany(Comment::class);
     }
 
 }

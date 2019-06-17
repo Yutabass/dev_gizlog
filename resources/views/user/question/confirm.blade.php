@@ -23,7 +23,11 @@
     </div>
   </div>
   <div class="btn-bottom-wrapper">
-    <form action="{{ route('question.post') }}" method="post">
+    @if ($question->id)
+      <form action="{{ route('question.post', ['id' => $question->id]) }}" method="post">
+    @else
+      <form action="{{ route('question.new.post') }}" method="post">
+    @endif
       {{ csrf_field() }}
       <input name="user_id" type="hidden" value="{{ $question->user_id }}">
       <input name="tag_category_id" type="hidden" value="{{ $question->tag_category_id }}">

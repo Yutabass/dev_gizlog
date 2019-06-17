@@ -27,7 +27,7 @@ class QuestionController extends Controller
         $search_tag_id = $request->tag_category_id;
         $search_word = $request->search_word;
             if (!empty($search_tag_id)) {
-                $questions = $this->question->where('title', 'like', "%$search_word%")->where('tag_category_id', '=', $search_tag_id)->latest()->get();
+                $questions = $this->question->where('title', 'like', "%$search_word%")->where('tag_category_id', $search_tag_id)->latest()->get();
             } else {
                 $questions = $this->question->where('title', 'like', "%$search_word%")->latest()->get();
             }   
@@ -45,38 +45,52 @@ class QuestionController extends Controller
         return view('user.question.edit', compact('question'));
     }
 
-    public function confirm(QuestionsRequest $request)
+    public function confirm(QuestionsRequest $request, $id)
+    {
+        $input = $request->all();
+        $question = $this->question->find($id)->fill($input);
+        return view('user.question.confirm', compact('question'));
+    }
+
+    public function newConfirm(QuestionsRequest $request)
     {
         $input = $request->all();
         $question = $this->question->fill($input);
         return view('user.question.confirm', compact('question'));
     }
 
-    public function post(Request $request)
+    public function post(Request $request, $id)
     {
         $input = $request->all();
-        $question = $this->question->fill($input)->save();
+        $this->question->find($id)->fill($input)->save();
+        return redirect()->route('question.mypage');
+    }
+
+    public function newPost(Request $request)
+    {
+        $input = $request->all();
+        $this->question->fill($input)->save();
         return redirect()->route('question.mypage');
     }
 
     public function comment(CommentRequest $request)
     {
         $input = $request->all();
-        $comment = $this->comment->fill($input)->save();
+        $this->comment->fill($input)->save();
         return redirect()->route('question.show',['id'=> $input['question_id']]);
     }
 
     public function show($id)
     {
         $question = $this->question->find($id);
-        $comments = $this->comment->where('question_id', '=', $id)->get();
+        $comments = $this->comment->where('question_id', $id)->get();
         return view('user.question.show', compact('question', 'comments'));
     }
     
     public function mypage()
     {
         $login_user_id = Auth::id();
-        $questions = $this->question->where('user_id', '=', $login_user_id)->latest()->get();
+        $questions = $this->question->where('user_id', $login_user_id)->latest()->get();
         return view('user.question.mypage', compact('questions'));
     }
 
