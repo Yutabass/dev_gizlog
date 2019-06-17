@@ -17,10 +17,9 @@
     </div>
     <div class="category-wrap">
       <div class="btn all" id="">all</div>
-      <div class="btn front" id="1">FRONT</div>
-      <div class="btn back" id="2">BACK</div>
-      <div class="btn infra" id="3">INFRA</div>
-      <div class="btn others" id="4">OTHERS</div>
+      @foreach ($categories as $category)
+        <div class="btn front {{ $category->name }}" id="{{ $category->id }}">{{ $category->name }}</div> 
+      @endforeach  
       <input id="category-val" name="tag_category_id" type="hidden">
     </div>
   </form>

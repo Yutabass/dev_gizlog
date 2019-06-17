@@ -14,10 +14,9 @@
       ">
         <select name='tag_category_id' class = "form-control selectpicker form-size-small" id="pref_id">
           <option value="">Select category</option>
-            <option value= "1">FRONT</option>
-            <option value= "2">BACK</option>
-            <option value= "3">INFRA</option>
-            <option value= "4">OTHERS</option>
+          @foreach ($categories as $category)
+            <option value= "{{ $category->id }}">{{ $category->name }}</option>
+          @endforeach
         </select>
         @if ($errors->has('tag_category_id'))
           <span class="help-block">{{ $errors->first('tag_category_id') }}</span>

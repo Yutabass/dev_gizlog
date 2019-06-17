@@ -24,6 +24,7 @@ class QuestionController extends Controller
 
     public function index(Request $request)
     {
+        $categories = \DB::table('tag_categories')->get();
         $search_tag_id = $request->tag_category_id;
         $search_word = $request->search_word;
             if (!empty($search_tag_id)) {
@@ -31,18 +32,20 @@ class QuestionController extends Controller
             } else {
                 $questions = $this->question->where('title', 'like', "%$search_word%")->latest()->get();
             }   
-        return view('user.question.index', compact('questions', 'search_word'));
+        return view('user.question.index', compact('questions', 'search_word', 'categories'));
     }
 
     public function create()
     {
-        return view('user.question.create');
+        $categories = \DB::table('tag_categories')->get();
+        return view('user.question.create', compact('categories'));
     }
 
     public function edit($id)
     {
         $question = $this->question->find($id);
-        return view('user.question.edit', compact('question'));
+        $categories = \DB::table('tag_categories')->get();
+        return view('user.question.edit', compact('question', 'categories'));
     }
 
     public function confirm(QuestionsRequest $request, $id)
