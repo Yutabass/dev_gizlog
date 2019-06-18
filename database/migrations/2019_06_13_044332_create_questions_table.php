@@ -18,7 +18,7 @@ class CreateQuestionsTable extends Migration
             $table->integer('user_id');
             $table->integer('tag_category_id');
             $table->string('title');
-            $table->string('content');
+            $table->text('content');
             $table->timestamps();
             $table->softDeletes();
         });
