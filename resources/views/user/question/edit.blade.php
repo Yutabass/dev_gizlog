@@ -5,7 +5,7 @@
 
 <div class="main-wrap">
   <div class="container">
-    <form action="{{ route('question.confirm', ['id' => $question->id]) }}" method="post">
+    <form action="{{ route('question.confirm', ['question_id' => $question->id]) }}" method="post">
       {{ csrf_field() }}
       <input type="hidden" name="user_id" value="{{ $question->user_id }}">
       <div class="form-group

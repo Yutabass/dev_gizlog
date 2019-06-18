@@ -16,7 +16,7 @@
           </tr>
           <tr>
             <th class="table-column">Question</th>
-            <td class='td-text'>{{ $question->content }}</td>
+            <td class='td-text'>{!! nl2br(e($question->content)) !!}</td>
           </tr>
         </tbody>
       </table>
@@ -24,7 +24,7 @@
   </div>
   <div class="btn-bottom-wrapper">
     @if ($question->id)
-      <form action="{{ route('question.post', ['id' => $question->id]) }}" method="post">
+      <form action="{{ route('question.post', ['question_id' => $question->id]) }}" method="post">
     @else
       <form action="{{ route('question.new.post') }}" method="post">
     @endif

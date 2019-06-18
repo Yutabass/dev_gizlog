@@ -7,6 +7,7 @@ use App\Http\Requests\User\QuestionsRequest;
 use App\Http\Requests\User\CommentRequest;
 use App\Models\Question;
 use App\Models\Comment;
+use App\Models\TagCategory;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,37 +15,40 @@ class QuestionController extends Controller
 {
     protected $question;
     protected $comment;
+    protected $tagCategory;
 
-    public function __construct(Question $question, Comment $comment)
+    public function __construct(Question $question, Comment $comment, TagCategory $tagCategory)
     {
         $this->middleware('auth');
         $this->question = $question;
         $this->comment = $comment;
+        $this->tagCategory = $tagCategory;
+
     }
 
     public function index(Request $request)
     {
-        $categories = \DB::table('tag_categories')->get();
+        $categories = $this->tagCategory->all();
         $search_tag_id = $request->tag_category_id;
         $search_word = $request->search_word;
-            if (!empty($search_tag_id)) {
-                $questions = $this->question->where('title', 'like', "%$search_word%")->where('tag_category_id', $search_tag_id)->latest()->get();
+            if ($search_tag_id) {
+                $questions = $this->question->searchFromFormAndCategoey($search_tag_id, $search_word);
             } else {
-                $questions = $this->question->where('title', 'like', "%$search_word%")->latest()->get();
+                $questions = $this->question->searchFromForm($search_word);
             }   
         return view('user.question.index', compact('questions', 'search_word', 'categories'));
     }
 
     public function create()
     {
-        $categories = \DB::table('tag_categories')->get();
+        $categories = $this->tagCategory->all();
         return view('user.question.create', compact('categories'));
     }
 
     public function edit($id)
     {
         $question = $this->question->find($id);
-        $categories = \DB::table('tag_categories')->get();
+        $categories = $this->tagCategory->all();
         return view('user.question.edit', compact('question', 'categories'));
     }
 
@@ -80,7 +84,7 @@ class QuestionController extends Controller
     {
         $input = $request->all();
         $this->comment->fill($input)->save();
-        return redirect()->route('question.show',['id'=> $input['question_id']]);
+        return redirect()->route('question.show',['question_id'=> $input['question_id']]);
     }
 
     public function show($id)
@@ -99,8 +103,7 @@ class QuestionController extends Controller
 
     public function destroy($id)
     {
-        $question = $this->question->find($id);
-        $question->delete();
+        $this->question->find($id)->delete();
         return redirect()->route('question.mypage');
     }
 

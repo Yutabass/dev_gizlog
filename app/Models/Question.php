@@ -37,5 +37,15 @@ class Question extends Model
         return $this->hasMany(Comment::class);
     }
 
+    public function searchFromFormAndCategoey($search_tag_id, $search_word)
+    {
+        return $this->where('title', 'like', "%$search_word%")->where('tag_category_id', $search_tag_id)->latest()->get();
+    }
+
+    public function searchFromForm($search_word)
+    {
+        return $this->where('title', 'like', "%$search_word%")->latest()->get();
+    }
+
 }
 
