@@ -31,11 +31,11 @@ class QuestionController extends Controller
         $categories = $this->tagCategory->all();
         $search_tag_id = $request->tag_category_id;
         $search_word = $request->search_word;
-            if ($search_tag_id) {
-                $questions = $this->question->searchFromFormAndCategoey($search_tag_id, $search_word);
-            } else {
-                $questions = $this->question->searchFromForm($search_word);
-            }   
+        if ($search_tag_id) {
+            $questions = $this->question->searchFromFormAndCategoey($search_tag_id, $search_word);
+        } else {
+            $questions = $this->question->searchFromForm($search_word);
+        }   
         return view('user.question.index', compact('questions', 'search_word', 'categories'));
     }
 
@@ -84,7 +84,7 @@ class QuestionController extends Controller
     {
         $input = $request->all();
         $this->comment->fill($input)->save();
-        return redirect()->route('question.show',['question_id'=> $input['question_id']]);
+        return redirect()->route('question.show', ['question_id'=> $input['question_id']]);
     }
 
     public function show($id)
