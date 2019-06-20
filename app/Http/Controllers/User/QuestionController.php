@@ -23,7 +23,6 @@ class QuestionController extends Controller
         $this->question = $question;
         $this->comment = $comment;
         $this->tagCategory = $tagCategory;
-
     }
 
     public function index(Request $request)
