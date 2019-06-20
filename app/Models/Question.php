@@ -46,5 +46,6 @@ class Question extends Model
     {
         return $this->where('title', 'like', "%$search_word%")->latest()->get();
     }
+    
 }
 

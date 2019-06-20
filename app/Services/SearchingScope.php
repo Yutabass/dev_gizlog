@@ -62,5 +62,6 @@ trait SearchingScope
             });
         }
     }
+
 }
 
