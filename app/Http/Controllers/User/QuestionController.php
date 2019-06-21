@@ -105,5 +105,6 @@ class QuestionController extends Controller
         $this->question->find($id)->delete();
         return redirect()->route('question.mypage');
     }
+    
 }
 
