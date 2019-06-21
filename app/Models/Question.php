@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Services\SearchingScope;
 
 class Question extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, SearchingScope;
     
     protected $fillable = [
         'user_id',
@@ -39,13 +40,11 @@ class Question extends Model
 
     public function searchFromFormAndCategoey($search_tag_id, $search_word)
     {
-        return $this->where('title', 'like', "%$search_word%")->where('tag_category_id', $search_tag_id)->latest()->get();
+        return $this->filterLike('title', $search_word)
+                    ->filterEqual('tag_category_id', $search_tag_id)
+                    ->latest()
+                    ->get();
     }
 
-    public function searchFromForm($search_word)
-    {
-        return $this->where('title', 'like', "%$search_word%")->latest()->get();
-    }
-    
 }
 

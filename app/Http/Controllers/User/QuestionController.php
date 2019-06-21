@@ -30,11 +30,7 @@ class QuestionController extends Controller
         $categories = $this->tagCategory->all();
         $search_tag_id = $request->tag_category_id;
         $search_word = $request->search_word;
-        if ($search_tag_id) {
-            $questions = $this->question->searchFromFormAndCategoey($search_tag_id, $search_word);
-        } else {
-            $questions = $this->question->searchFromForm($search_word);
-        }   
+        $questions = $this->question->searchFromFormAndCategoey($search_tag_id, $search_word); 
         return view('user.question.index', compact('questions', 'search_word', 'categories'));
     }
 
