@@ -4,7 +4,7 @@
 <h2 class="brand-header">質問投稿</h2>
 <div class="main-wrap">
   <div class="container">
-    <form action="{{ route('question.new.confirm') }}" method="post">
+    <form action="{{ route('question.create.confirm') }}" method="post">
       {{ csrf_field() }}
       <input type="hidden" name="user_id" value="{{ Auth::id() }}">
       <div class="form-group

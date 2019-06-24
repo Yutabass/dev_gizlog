@@ -19,7 +19,7 @@
       <div class="btn all" id="">all</div>
       @foreach ($categories as $category)
         <div class="btn front {{ $category->name }}" id="{{ $category->id }}">{{ $category->name }}</div> 
-      @endforeach  
+      @endforeach
       <input id="category-val" name="tag_category_id" type="hidden">
     </div>
   </form>

@@ -9,7 +9,7 @@ use App\Services\SearchingScope;
 class Question extends Model
 {
     use SoftDeletes, SearchingScope;
-    
+
     protected $fillable = [
         'user_id',
         'tag_category_id',

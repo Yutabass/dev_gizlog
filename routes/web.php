@@ -35,10 +35,10 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
     Route::get('question/create', ['as' => 'question.create', 'uses' => 'QuestionController@create']);
     Route::get('question/mypage', ['as' => 'question.mypage', 'uses' => 'QuestionController@mypage']);
     Route::post('question/comment', ['as' => 'question.comment', 'uses' => 'QuestionController@comment']);
-    Route::post('question/new/post', ['as' => 'question.new.post', 'uses' => 'QuestionController@newPost']);
-    Route::post('question/new/confirm', ['as' => 'question.new.confirm', 'uses' => 'QuestionController@newConfirm']);
-    Route::post('question/{question_id}/post', ['as' => 'question.post', 'uses' => 'QuestionController@post']);
-    Route::post('question/{question_id}/confirm', ['as' => 'question.confirm', 'uses' => 'QuestionController@confirm']);
+    Route::post('question/post', ['as' => 'question.create.post', 'uses' => 'QuestionController@post']);
+    Route::post('question/confirm', ['as' => 'question.create.confirm', 'uses' => 'QuestionController@confirm']);
+    Route::post('question/{question_id}/post', ['as' => 'question.edit.post', 'uses' => 'QuestionController@post']);
+    Route::post('question/{question_id}/confirm', ['as' => 'question.edit.confirm', 'uses' => 'QuestionController@confirm']);
     Route::delete('question/{question_id}', ['as' => 'question.delete', 'uses' => 'QuestionController@destroy']);
     Route::get('question/{question_id}', ['as' => 'question.show', 'uses' => 'QuestionController@show']);
     Route::get('question/{question_id}/edit', ['as' => 'question.edit', 'uses' => 'QuestionController@edit']);

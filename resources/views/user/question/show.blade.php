@@ -32,9 +32,9 @@
             <p>{{ $comment->user->name }}</p>
             <p class="comment-date">{{ $comment->updated_at }}</p>
           </div>
-          <div class="comment-body">{{ $comment->comment }}</div>
+          <div class="comment-body">{!! nl2br(e($comment->comment)) !!}</div>
         </div>
-      @endforeach  
+      @endforeach
     </div>
   <div class="comment-box">
     <form action="{{ route('question.comment') }}" method="post">
@@ -52,7 +52,7 @@
         <textarea class="form-control" placeholder="Add your comment..." name="comment" cols="50" rows="10">{{ old('comment') }}</textarea>
         @if ($errors->has('comment'))
           <span class="help-block">{{ $errors->first('comment') }}</span>
-        @endif  
+        @endif
       </div>
       <div class="comment-bottom">
         <button type="submit" class="btn btn-success">

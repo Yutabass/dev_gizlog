@@ -47,31 +47,25 @@ class QuestionController extends Controller
         return view('user.question.edit', compact('question', 'categories'));
     }
 
-    public function confirm(QuestionsRequest $request, $id)
+    public function confirm(QuestionsRequest $request, $id = NULL)
     {
         $input = $request->all();
-        $question = $this->question->find($id)->fill($input);
+        if ($id) {
+            $question = $this->question->find($id)->fill($input);
+        } else {
+            $question = $this->question->fill($input);
+        }
         return view('user.question.confirm', compact('question'));
     }
 
-    public function newConfirm(QuestionsRequest $request)
+    public function post(Request $request, $id = NULL)
     {
         $input = $request->all();
-        $question = $this->question->fill($input);
-        return view('user.question.confirm', compact('question'));
-    }
-
-    public function post(Request $request, $id)
-    {
-        $input = $request->all();
-        $this->question->find($id)->fill($input)->save();
-        return redirect()->route('question.mypage');
-    }
-
-    public function newPost(Request $request)
-    {
-        $input = $request->all();
-        $this->question->fill($input)->save();
+        if ($id) {
+            $this->question->find($id)->fill($input)->save();
+        } else {
+            $this->question->fill($input)->save();
+        }
         return redirect()->route('question.mypage');
     }
 

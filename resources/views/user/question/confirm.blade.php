@@ -24,9 +24,9 @@
   </div>
   <div class="btn-bottom-wrapper">
     @if ($question->id)
-      <form action="{{ route('question.post', ['question_id' => $question->id]) }}" method="post">
+      <form action="{{ route('question.edit.post', ['question_id' => $question->id]) }}" method="post">
     @else
-      <form action="{{ route('question.new.post') }}" method="post">
+      <form action="{{ route('question.create.post') }}" method="post">
     @endif
       {{ csrf_field() }}
       <input name="user_id" type="hidden" value="{{ $question->user_id }}">
