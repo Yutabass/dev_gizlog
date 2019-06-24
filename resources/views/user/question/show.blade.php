@@ -42,7 +42,7 @@
       <input name="user_id" type="hidden" value="{{ Auth::id() }}">
       <input name="question_id" type="hidden" value="{{ $question->id }}">
       <div class="comment-title">
-        <img src="{{ $question->user->avatar }}" class="avatar-img"><p>コメントを投稿する</p>
+        <img src="{{ Auth::user()->avatar }}" class="avatar-img"><p>コメントを投稿する</p>
       </div>
       <div class="comment-body
         @if ($errors->has('comment'))
